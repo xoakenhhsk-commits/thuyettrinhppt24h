@@ -4,7 +4,7 @@ export const PLANS: Record<PlanType, PlanConfig> = {
   standard: {
     id: 'standard',
     name: 'Gói Tiêu chuẩn',
-    price: 30000,
+    price: 2000,
     deliveryDays: 3,
     description: 'Phù hợp cho bài tập lớn, thuyết trình nhóm thông thường.',
     features: [
@@ -17,7 +17,7 @@ export const PLANS: Record<PlanType, PlanConfig> = {
   rush: {
     id: 'rush',
     name: 'Gói Nhanh (Hỏa tốc)',
-    price: 50000,
+    price: 3000,
     deliveryDays: 1,
     description: 'Dành cho trường hợp gấp, cần nộp bài hoặc thuyết trình ngay.',
     features: [

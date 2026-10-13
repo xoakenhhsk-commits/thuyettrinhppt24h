@@ -2,14 +2,14 @@ import { describe, it, expect } from 'vitest';
 import { calculateOrderPrice, calculateDueAt, getPlanDetails, formatVND } from '../lib/pricing';
 
 describe('Pricing Module (lib/pricing.ts)', () => {
-  it('tính đúng giá gói Tiêu chuẩn (30.000đ)', () => {
+  it('tính đúng giá gói Tiêu chuẩn (2.000đ)', () => {
     const price = calculateOrderPrice('standard');
-    expect(price).toBe(30000);
+    expect(price).toBe(2000);
   });
 
-  it('tính đúng giá gói Hỏa tốc (50.000đ)', () => {
+  it('tính đúng giá gói Hỏa tốc (3.000đ)', () => {
     const price = calculateOrderPrice('rush');
-    expect(price).toBe(50000);
+    expect(price).toBe(3000);
   });
 
   it('tính đúng thời hạn giao cho gói Tiêu chuẩn (3 ngày)', () => {

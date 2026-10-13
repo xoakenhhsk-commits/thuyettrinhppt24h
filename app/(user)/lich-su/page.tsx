@@ -120,7 +120,7 @@ export default function OrderHistoryPage() {
             Bạn chưa có đơn hàng nào
           </h2>
           <p className="text-xs sm:text-sm text-zinc-500 max-w-sm mx-auto mt-1 mb-6">
-            Hãy bắt đầu đặt làm bài thuyết trình đầu tiên với giá chỉ từ 30.000đ.
+            Hãy bắt đầu đặt làm bài thuyết trình đầu tiên với giá chỉ từ 2.000đ.
           </p>
           <Link
             href="/dat-hang"

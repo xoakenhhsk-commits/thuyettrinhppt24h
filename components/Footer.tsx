@@ -51,10 +51,10 @@ export function Footer() {
             <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-3">Bảng giá gói</h4>
             <ul className="space-y-2 text-xs text-zinc-400">
               <li>
-                <span className="text-zinc-200 font-semibold">Gói Tiêu chuẩn:</span> 30.000đ (3 ngày)
+                <span className="text-zinc-200 font-semibold">Gói Tiêu chuẩn:</span> 2.000đ (3 ngày)
               </li>
               <li>
-                <span className="text-zinc-200 font-semibold">Gói Hỏa tốc:</span> 50.000đ (24 giờ)
+                <span className="text-zinc-200 font-semibold">Gói Hỏa tốc:</span> 3.000đ (24 giờ)
               </li>
               <li className="pt-2">
                 <Link href="/dat-hang" className="text-indigo-400 hover:underline font-semibold">
