@@ -16,6 +16,10 @@ export const metadata: Metadata = {
   title: 'PPT 24h - Dịch Vụ Thiết Kế Slide PowerPoint Chuyên Nghiệp & Hỏa Tốc',
   description:
     'Dịch vụ làm slide thuyết trình PowerPoint theo yêu cầu. Giao bài chỉ từ 24h, thanh toán tự động qua VietQR, theo dõi tiến độ và tải file trực tuyến.',
+  icons: {
+    icon: '/logo.jpg',
+    apple: '/logo.jpg'
+  },
   keywords: [
     'làm bài thuyết trình',
     'thiết kế powerpoint',

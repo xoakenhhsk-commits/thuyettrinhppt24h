@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';
 import { Presentation, ShieldCheck, Clock, Headphones, AlertCircle } from 'lucide-react';
 
@@ -10,8 +11,14 @@ export function Footer() {
           {/* Cột 1: Thương hiệu */}
           <div className="md:col-span-1 space-y-3">
             <div className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-xl bg-indigo-600 flex items-center justify-center text-white">
-                <Presentation className="w-5 h-5" />
+              <div className="relative w-9 h-9 rounded-xl overflow-hidden ring-1 ring-zinc-700 bg-zinc-900 shrink-0">
+                <Image
+                  src="/logo.jpg"
+                  alt="PPT 24h Logo"
+                  fill
+                  sizes="36px"
+                  className="object-cover"
+                />
               </div>
               <span className="font-extrabold text-lg text-white">PPT 24h</span>
             </div>
