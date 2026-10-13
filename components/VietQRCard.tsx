@@ -20,6 +20,23 @@ export function VietQRCard({ instructions, orderCode, isPolling = true }: VietQR
     setTimeout(() => setCopiedField(null), 2000);
   };
 
+  const [qrUrl, setQrUrl] = useState(instructions.qrUrl);
+  const [loadError, setLoadError] = useState(false);
+
+  const handleImageError = () => {
+    // Nếu link đầu tiên lỗi, thử fallback sang SePay QR hoặc ngược lại
+    if (qrUrl.includes('vietqr.io')) {
+      const sepayUrl = `https://qr.sepay.vn/img?acc=${encodeURIComponent(
+        instructions.accountNumber
+      )}&bank=${encodeURIComponent(instructions.bankName)}&amount=${instructions.amount}&des=${encodeURIComponent(
+        orderCode
+      )}&template=compact`;
+      setQrUrl(sepayUrl);
+    } else {
+      setLoadError(true);
+    }
+  };
+
   return (
     <div className="bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-3xl p-6 sm:p-8 shadow-xl max-w-lg mx-auto">
       {/* Header */}
@@ -38,12 +55,22 @@ export function VietQRCard({ instructions, orderCode, isPolling = true }: VietQR
       {/* QR Code Container */}
       <div className="flex flex-col items-center justify-center p-4 bg-zinc-50 dark:bg-zinc-950/60 rounded-2xl border border-zinc-200/80 dark:border-zinc-800 mb-6 relative group">
         <div className="relative w-64 h-64 sm:w-72 sm:h-72 bg-white rounded-xl shadow-md p-3 flex items-center justify-center overflow-hidden border border-zinc-200">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={instructions.qrUrl}
-            alt="Mã QR thanh toán VietQR"
-            className="w-full h-full object-contain"
-          />
+          {!loadError ? (
+            /* eslint-disable-next-line @next/next/no-img-element */
+            <img
+              src={qrUrl}
+              alt="Mã QR thanh toán VietQR"
+              className="w-full h-full object-contain"
+              onError={handleImageError}
+            />
+          ) : (
+            <div className="text-center p-4">
+              <QrCode className="w-12 h-12 text-zinc-400 mx-auto mb-2" />
+              <p className="text-xs text-zinc-500">
+                Vui lòng chuyển khoản theo số tài khoản bên dưới
+              </p>
+            </div>
+          )}
         </div>
         <div className="mt-3 flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 font-medium">
           <ShieldCheck className="w-4 h-4" />

@@ -3,6 +3,22 @@ import { extractOrderCode } from '../order-code';
 import { Order, PaymentInstructions } from '../types';
 import { PaymentProvider, WebhookVerificationResult } from './provider';
 
+function getNormalizedBankId(bank: string): string {
+  const b = (bank || 'MB').toUpperCase().trim();
+  if (b.includes('MB')) return 'MB';
+  if (b.includes('VIETCOM') || b === 'VCB') return 'VCB';
+  if (b.includes('TECHCOM') || b === 'TCB') return 'TCB';
+  if (b.includes('BIDV')) return 'BIDV';
+  if (b.includes('VIETIN') || b === 'CTG') return 'CTG';
+  if (b.includes('TPB') || b.includes('TPBANK')) return 'TPB';
+  if (b.includes('ACB')) return 'ACB';
+  if (b.includes('VPB') || b.includes('VPBANK')) return 'VPB';
+  if (b.includes('VIB')) return 'VIB';
+  if (b.includes('SACCOM') || b === 'STB') return 'STB';
+  if (b.includes('AGRI') || b.includes('AGRIBANK') || b === 'VBA') return 'VBA';
+  return bank || 'MB';
+}
+
 export class SePayPaymentProvider implements PaymentProvider {
   name = 'sepay';
 
@@ -19,27 +35,27 @@ export class SePayPaymentProvider implements PaymentProvider {
   }) {
     this.apiKey = options?.apiKey || process.env.SEPAY_API_KEY || '';
     this.bankName = options?.bankName || process.env.NEXT_PUBLIC_BANK_NAME || 'MBBank';
-    this.accountNumber = options?.accountNumber || process.env.NEXT_PUBLIC_BANK_ACCOUNT_NO || '';
-    this.accountName = options?.accountName || process.env.NEXT_PUBLIC_BANK_ACCOUNT_NAME || '';
+    this.accountNumber = options?.accountNumber || process.env.NEXT_PUBLIC_BANK_ACCOUNT_NO || '0888888888';
+    this.accountName = options?.accountName || process.env.NEXT_PUBLIC_BANK_ACCOUNT_NAME || 'PPT 24H';
   }
 
   createPaymentInstructions(order: Order): PaymentInstructions {
     const transferContent = order.code;
     const amount = order.amount;
+    const acc = (this.accountNumber || process.env.NEXT_PUBLIC_BANK_ACCOUNT_NO || '0888888888').trim();
+    const bank = (this.bankName || process.env.NEXT_PUBLIC_BANK_NAME || 'MBBank').trim();
+    const name = (this.accountName || process.env.NEXT_PUBLIC_BANK_ACCOUNT_NAME || 'PPT 24H').trim();
+    const bankId = getNormalizedBankId(bank);
 
-    // Chuẩn VietQR tự sinh ảnh mã QR có sẵn số tiền và nội dung đơn hàng
-    // Dùng SePay QR service hoặc VietQR:
-    // https://qr.sepay.vn/img?acc=...&bank=...&amount=...&des=...
-    const qrUrl = `https://qr.sepay.vn/img?acc=${encodeURIComponent(
-      this.accountNumber
-    )}&bank=${encodeURIComponent(this.bankName)}&amount=${amount}&des=${encodeURIComponent(
+    // Chuẩn VietQR quốc gia (Napas) tạo ảnh mã QR tức thời, tương thích 100% app ngân hàng
+    const qrUrl = `https://img.vietqr.io/image/${bankId}-${acc}-compact2.png?amount=${amount}&addInfo=${encodeURIComponent(
       transferContent
-    )}&template=compact`;
+    )}&accountName=${encodeURIComponent(name)}`;
 
     return {
-      bankName: this.bankName,
-      accountNumber: this.accountNumber,
-      accountName: this.accountName,
+      bankName: bank,
+      accountNumber: acc,
+      accountName: name,
       amount,
       transferContent,
       qrUrl,
