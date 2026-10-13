@@ -42,7 +42,7 @@ export default function HomePage() {
           <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-zinc-900 dark:text-white max-w-4xl mx-auto leading-tight sm:leading-tight">
             Bài Thuyết Trình Ấn Tượng,{' '}
             <span className="bg-gradient-to-r from-indigo-600 via-violet-600 to-amber-500 bg-clip-text text-transparent animate-gradient-shift">
-              Chỉ Từ 2.000đ
+              Chỉ Từ 100đ
             </span>
           </h1>
 
